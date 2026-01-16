@@ -1,1 +1,94 @@
+Oct 24 meeting with Zhiyuan
+From Zhiyuan meeting Oct 24 
+Old data of MK6070 from process 1 
+New data (23) from process 2, varying concentration (potential task definition criteria), same feature same 
+Answer the yes or no question for salt/sugar, switch from Sorbital to Sucrose (8% weight percentage), remove Glycine 
+Batch Bayesian Optimization, batch recommendations 
 
+
+Updates on obsidian library 
+Summary: 
+(1)Can not use command pip install obsidian to install the library, so I looked into the code in the repository 
+
+(2)only has MOGP, not MTMO GP 
+
+(3)the documentation is not complete 
+Sequential Model-Based Optimization (SMBO) Workflow 
+
+Data 
+Continuous: Minmax scaling 
+Categorical: Label Encoding 
+
+
+Surrogate Models: 
+In training the Surrogate model, it utilizes the functions from both the gpytorch and the botorch libraries 
+The type of GP models: 
+
+GPflat: use BoTorch SingleTaskGP, no prior on noise, length scale 
+GPprior: use BoTorch SingleTaskGP, has prior on noise, length scale 
+Mixed GP: GP with mixed parameter types (continuous, categorical) 
+MTGP: Multi-task GP for multi-output optimization, implemented as a multi-output GP 
+DKL (Deep Kernel Learning): before feeding x into a GP kernel, first feed it through a feature extractor constructed by a NN 
+
+DNN: implemented 
+
+Acquisition function: 
+
+Mostly use acquisitions functions from Botorch: 
+
+"qProbabilityOfImprovement", 
+
+"qUpperConfidenceBound",   
+
+"qSimpleRegret", 
+
+"qLogExpectedImprovement", 
+
+"qLogNoisyExpectedImprovement", 
+
+"qLogExpectedHypervolumeImprovement", 
+
+"qLogNoisyExpectedHypervolumeImprovement", 
+
+"qLogNParEGO", 
+
+"qNegIntegratedPosteriorVariance" 
+
+ 
+
+Besides, two custom acquisision functions were defined: 
+
+(1)qMean: optimize for the maximum value of posterior mean 
+
+(2)qSpaceFill: optimizes for the maximum value of minimum distance between a point and the training data 
+
+ 
+
+There is a flag to indicate whether the output is multi-dimensional 
+
+ 
+
+Objective function: 
+
+Single-objective optimization: The optimal value of measured experimental outcome 
+
+ 
+
+Multi-objective optimization:  
+
+(1)optimal weighted outcome 
+
+(2)hypervolume: first choose a reference point in the output space as a baseline, then the hypervolume is calculated for the space between the reference point and the pareto front 
+
+(3)minimum distance to the utopian point 
+
+
+https://github.com/stonekev_merck/obsidian (The repository has been archived by the owner in August 2024) 
+
+https://github.com/MSDLLCpapers/obsidian 
+
+ 
+
+ 
+
+ 
