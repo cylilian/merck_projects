@@ -5,3 +5,5 @@ https://github.com/GPflow/GPflow
 https://github.com/hegdepashupati/gprn-svi
 https://github.com/MSDLLCpapers/obsidian
 https://github.com/ThomasBury/arfs
+https://github.com/ChunchaoPeter/HMOGP-LV
+https://github.com/ssydasheng/GPflow-Slim
