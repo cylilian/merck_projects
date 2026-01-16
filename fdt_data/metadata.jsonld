@@ -1,0 +1,38 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Final Data All Excipients",
+  "description": "This dataset includes formulation data for fast-disintegrating tablets (FDTs), containing information on APIs, excipients, and formulation characteristics such as disintegration time, hardness, and friability. It is useful for pharmaceutical formulation analysis, machine learning, and drug delivery research.",
+  "url": "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TUSJYB",
+  "identifier": "https://doi.org/10.7910/DVN/TUSJYB",
+  "creator": {
+    "@type": "Person",
+    "name": "Mehri Momeni",
+    "email": "Mehri.momeny@gmail.com"
+  },
+  "keywords": [
+    "Pharmaceutical formulation",
+    "Fast disintegrating tablets",
+    "Excipients",
+    "Drug delivery",
+    "Pharmaceutical dataset"
+  ],
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "datePublished": "2023-07-06",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Harvard Dataverse"
+  },
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "text/csv",
+    "contentUrl": "https://dataverse.harvard.edu/api/access/datafile/6935018"
+  },
+  "measurementTechnique": "Experimental formulation and characterization of fast-disintegrating tablets (FDTs)",
+  "citation": "Momeni M. Final Data All Excipients [dataset]. Harvard Dataverse; 2023. https://doi.org/10.7910/DVN/TUSJYB",
+  "includedInDataCatalog": {
+    "@type": "DataCatalog",
+    "name": "Harvard Dataverse",
+    "url": "https://dataverse.harvard.edu/"
+  }
+}

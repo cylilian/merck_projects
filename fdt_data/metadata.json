@@ -1,0 +1,498 @@
+{
+  "title": "Final Data All Excipients",
+  "description": "This dataset includes formulation data for fast-disintegrating tablets (FDTs), containing information on active pharmaceutical ingredients (APIs), excipients, and formulation characteristics such as disintegration time, hardness, and friability.",
+  "creator": {
+    "name": "Mehri Momeni",
+    "email": "Mehri.momeny@gmail.com"
+  },
+  "source": "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TUSJYB",
+  "publication": "https://bmcresnotes.biomedcentral.com/articles/10.1186/s13104-023-06416-w",
+  "license": "CC0 1.0",
+  "data_dictionary": "data_dictionary.csv",
+  "file": {
+    "name": "final Data All Exipients(13990829).csv",
+    "format": "csv",
+    "columns": [
+      "Molecular Weight",
+      "XLogP3-AA",
+      "Hydrogen Bond Donor Count",
+      "Hydrogen Bond Acceptor Count",
+      "Rotational bond count",
+      "Topological surface area",
+      "Heavy atom count",
+      "Complexity",
+      "LogS",
+      "DOSE",
+      "Weight(mg)",
+      "Bulk Density",
+      "Tapped Density",
+      "Carrs Compressibility Index",
+      "Hausner Ratio",
+      "Angle of Repose",
+      "Thickness",
+      "Wetting time",
+      "Microcrystalline Cellulose",
+      "Mannitol",
+      "Magnesium Stearate",
+      "Talc",
+      "Sodium croscarmellose",
+      "Aspartame",
+      "Hydroxypropyl Cellulose (HPC)",
+      "Gum",
+      "Chitosan",
+      "Sodium saccharin",
+      "Sodium lauryl sulfate(SLS)",
+      "Sodium stearyl fumarate ",
+      "Polyvinylpyrrolidone (Crospovidone)",
+      "Sodium starch glycolate",
+      "polyvinyl acetate",
+      "Lactose",
+      "Colloidal silicon dioxide (Aerosil)",
+      "Citric acid",
+      "Menthol",
+      "B-cyclodextrin",
+      "Stevia leaf Powder ",
+      "Clove oil ",
+      "Starch",
+      "sodium bicarbonate (NaHCO3)",
+      "Plantago ovata",
+      "Pharmaburst",
+      "parteck",
+      "Polyethylene Glycol",
+      "Eudragit EPO",
+      "Precirol",
+      "acesulfame potassium",
+      "Polacrilin Potassium",
+      "Acryflow-L",
+      "Indion",
+      "Lubritose",
+      "Sucralose",
+      "Silicon dioxide",
+      "Neotame",
+      "Sucrose",
+      "Ocimum sanctum seed powder",
+      "Agar",
+      "Calcium carbonate",
+      "Sodium Saccharine ",
+      "Prosolv ODT",
+      "Cellactose",
+      "Quinoline yellow lake",
+      "Aerosol",
+      "Sodium behenate",
+      "dibasic calcium phosphate",
+      "Mucilage powder",
+      "GNSP",
+      "Ludipress",
+      "Kaolin",
+      "Methyl paraben",
+      "Camphor",
+      "CPE",
+      "HARDNESS",
+      "FRIABILITY",
+      "Drug content",
+      "Water absorption ratio",
+      "DISINTEGRATION_TIME"
+    ],
+    "rows": 1982
+  },
+  "keywords": [
+    "Pharmaceutical formulation",
+    "Fast disintegrating tablets",
+    "Excipients",
+    "Drug delivery",
+    "Pharmaceutical dataset"
+  ],
+  "schema": [
+    {
+      "name": "Molecular Weight",
+      "description": "The molecular weight (molar mass) of the active pharmaceutical ingredient (API).",
+      "unit": "g/mol"
+    },
+    {
+      "name": "XLogP3-AA",
+      "description": "The predicted logarithm of the compound’s octanol–water partition coefficient (logP), indicating its lipophilicity.",
+      "unit": "Unitless"
+    },
+    {
+      "name": "Hydrogen Bond Donor Count",
+      "description": "The number of hydrogen atoms in the molecule that can form hydrogen bonds (donors).",
+      "unit": "Count"
+    },
+    {
+      "name": "Hydrogen Bond Acceptor Count",
+      "description": "The number of atoms in the molecule that can accept hydrogen bonds.",
+      "unit": "Count"
+    },
+    {
+      "name": "Rotational bond count",
+      "description": "The number of rotatable bonds in the molecule, affecting molecular flexibility.",
+      "unit": "Count"
+    },
+    {
+      "name": "Topological surface area",
+      "description": "The total surface area of all polar atoms, primarily oxygen and nitrogen, including attached hydrogens; used to estimate drug absorption.",
+      "unit": "Å²"
+    },
+    {
+      "name": "Heavy atom count",
+      "description": "The total number of non-hydrogen atoms in the compound.",
+      "unit": "Count"
+    },
+    {
+      "name": "Complexity",
+      "description": "A quantitative measure of the molecular complexity, considering ring systems, stereochemistry, and branching.",
+      "unit": "Unitless"
+    },
+    {
+      "name": "LogS",
+      "description": "Predicted aqueous solubility of the compound expressed as the logarithm of the solubility (mol/L). Lower values indicate lower solubility.",
+      "unit": "log(mol/L)"
+    },
+    {
+      "name": "DOSE",
+      "description": "The amount of active pharmaceutical ingredient (API) present in a single tablet.",
+      "unit": "mg"
+    },
+    {
+      "name": "Weight(mg)",
+      "description": "The total weight of tablet.",
+      "unit": "mg"
+    },
+    {
+      "name": "Bulk Density",
+      "description": "The mass of powder (including air spaces) per unit volume before tapping.",
+      "unit": "g/cm³"
+    },
+    {
+      "name": "Tapped Density",
+      "description": "The mass per unit volume of a powder after it has been tapped down to eliminate air gaps.",
+      "unit": "g/cm³"
+    },
+    {
+      "name": "Carrs Compressibility Index",
+      "description": "A measure of compressibility calculated as: (Tapped Density - Bulk Density) / Tapped Density × 100. Indicates flowability.",
+      "unit": "%"
+    },
+    {
+      "name": "Hausner Ratio",
+      "description": "An index of powder flowability calculated as Tapped Density / Bulk Density.",
+      "unit": "Unitless"
+    },
+    {
+      "name": "Angle of Repose",
+      "description": "The steepest angle at which a powder remains stable without sliding, indicating its flowability.",
+      "unit": "Degrees (°)"
+    },
+    {
+      "name": "Thickness",
+      "description": "The thickness of the tablet measured with a caliper.",
+      "unit": "mm"
+    },
+    {
+      "name": "Wetting time",
+      "description": "The time it takes for a tablet to become completely wet when placed in a fluid medium.",
+      "unit": "seconds"
+    },
+    {
+      "name": "Microcrystalline Cellulose",
+      "description": "A common filler and binder used to provide structural integrity to tablets.",
+      "unit": "mg"
+    },
+    {
+      "name": "Mannitol",
+      "description": "A sweet-tasting sugar alcohol used as a diluent and cooling agent in orodispersible tablets.",
+      "unit": "mg"
+    },
+    {
+      "name": "Magnesium Stearate",
+      "description": "A lubricant used to prevent ingredients from sticking to manufacturing equipment.",
+      "unit": "mg"
+    },
+    {
+      "name": "Talc",
+      "description": "A glidant that improves powder flow during tablet manufacturing.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sodium croscarmellose",
+      "description": "A superdisintegrant that facilitates rapid breakup of tablets in the gastrointestinal tract.",
+      "unit": "mg"
+    },
+    {
+      "name": "Aspartame",
+      "description": "A low-calorie artificial sweetener used to improve palatability.",
+      "unit": "mg"
+    },
+    {
+      "name": "Hydroxypropyl Cellulose (HPC)",
+      "description": "A binder and film-forming agent that enhances tablet cohesion and release.",
+      "unit": "mg"
+    },
+    {
+      "name": "Gum",
+      "description": "Natural binder or disintegrant (e.g., acacia, xanthan); improves tablet formation.",
+      "unit": "mg"
+    },
+    {
+      "name": "Chitosan",
+      "description": "A biodegradable polymer used as a binder or bioadhesive.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sodium Saccharin",
+      "description": "An artificial sweetener used to mask the bitterness of active ingredients.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sodium lauryl sulfate(SLS)",
+      "description": "A surfactant used to enhance wetting and solubility of poorly soluble drugs.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sodium stearyl fumarate",
+      "description": "A hydrophobic lubricant used in direct compression formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "Polyvinylpyrrolidone (Crospovidone)",
+      "description": "A crosslinked polymer used as a superdisintegrant in fast-disintegrating tablets.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sodium starch glycolate",
+      "description": "A starch-based superdisintegrant that swells upon hydration.",
+      "unit": "mg"
+    },
+    {
+      "name": "polyvinyl acetate",
+      "description": "A film-forming polymer used for coating and controlled release.",
+      "unit": "mg"
+    },
+    {
+      "name": "Lactose",
+      "description": "A commonly used diluent that aids in tablet compressibility and palatability.",
+      "unit": "mg"
+    },
+    {
+      "name": "Colloidal silicon dioxide (Aerosil)",
+      "description": "A glidant used to improve flow properties and prevent clumping.",
+      "unit": "mg"
+    },
+    {
+      "name": "Citric acid",
+      "description": "Used to adjust pH or as a flavoring agent to mask bitterness.",
+      "unit": "mg"
+    },
+    {
+      "name": "Menthol",
+      "description": "A flavoring and cooling agent that improves mouthfeel.",
+      "unit": "mg"
+    },
+    {
+      "name": "B-cyclodextrin",
+      "description": "A complexing agent that improves solubility and stability of APIs.",
+      "unit": "mg"
+    },
+    {
+      "name": "Stevia leaf Powder",
+      "description": "A natural sweetener derived from the Stevia plant.",
+      "unit": "mg"
+    },
+    {
+      "name": "Clove oil",
+      "description": "A natural flavoring and antimicrobial agent.",
+      "unit": "mg"
+    },
+    {
+      "name": "Starch",
+      "description": "A traditional disintegrant and binder in tablet formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "sodium bicarbonate (NaHCO3)",
+      "description": "An effervescent agent used to facilitate disintegration through gas generation.",
+      "unit": "mg"
+    },
+    {
+      "name": "Plantago ovata",
+      "description": "A natural fiber (psyllium) used as a swelling agent or disintegrant.",
+      "unit": "mg"
+    },
+    {
+      "name": "Pharmaburst",
+      "description": "A commercially available co-processed excipient for fast-disintegrating tablets.",
+      "unit": "mg"
+    },
+    {
+      "name": "parteck",
+      "description": "A brand of mannitol-based excipients designed for direct compression and disintegration.",
+      "unit": "mg"
+    },
+    {
+      "name": "Polyethylene Glycol",
+      "description": "A plasticizer or solubilizer used in formulations for improved drug release.",
+      "unit": "mg"
+    },
+    {
+      "name": "Eudragit EPO",
+      "description": "A pH-sensitive polymer used in taste-masking and modified-release coatings.",
+      "unit": "mg"
+    },
+    {
+      "name": "Precirol",
+      "description": "A lipid-based excipient used for sustained release formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "acesulfame potassium",
+      "description": "A calorie-free sweetener used to improve taste.",
+      "unit": "mg"
+    },
+    {
+      "name": "Polacrilin Potassium",
+      "description": "A strong ion-exchange resin used as a disintegrant.",
+      "unit": "mg"
+    },
+    {
+      "name": "Acryflow-L",
+      "description": "A lubricant and glidant excipient used to improve flowability.",
+      "unit": "mg"
+    },
+    {
+      "name": "Indion",
+      "description": "A series of ion-exchange resins (e.g., Indion 414) used as disintegrants or taste-masking agents.",
+      "unit": "mg"
+    },
+    {
+      "name": "Lubritose",
+      "description": "A co-processed lactose-based excipient designed to improve compressibility.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sucralose",
+      "description": "An artificial sweetener used to mask unpleasant tastes.",
+      "unit": "mg"
+    },
+    {
+      "name": "Silicon dioxide",
+      "description": "A glidant used to enhance flow and reduce moisture sensitivity.",
+      "unit": "mg"
+    },
+    {
+      "name": "Neotame",
+      "description": "A potent artificial sweetener used in low concentrations for taste improvement.",
+      "unit": "mg"
+    },
+    {
+      "name": "Sucrose",
+      "description": "A sugar-based diluent and sweetener often used in chewable and ODT formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "Ocimum sanctum seed powder",
+      "description": "A herbal excipient potentially used for its bioactive or binding properties.",
+      "unit": "mg"
+    },
+    {
+      "name": "Agar",
+      "description": "A natural gelling agent and disintegrant derived from seaweed.",
+      "unit": "mg"
+    },
+    {
+      "name": "Calcium carbonate",
+      "description": "Used as a filler, pH buffer, or source of calcium.",
+      "unit": "mg"
+    },
+    {
+      "name": "Prosolv ODT",
+      "description": "A co-processed excipient system designed specifically for orodispersible tablets.",
+      "unit": "mg"
+    },
+    {
+      "name": "Cellactose",
+      "description": "A co-spray-dried lactose–cellulose blend used as a filler and binder.",
+      "unit": "mg"
+    },
+    {
+      "name": "Quinoline yellow lake",
+      "description": "A colorant used to improve tablet appearance.",
+      "unit": "mg"
+    },
+    {
+      "name": "Aerosol",
+      "description": "Likely a duplicate/misspelling of Aerosil (colloidal silicon dioxide).",
+      "unit": "mg"
+    },
+    {
+      "name": "Sodium behenate",
+      "description": "A lubricant and binder for direct compression formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "Dibasic calcium phosphate",
+      "description": "A diluent and binder commonly used in tablet formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "Mucilage powder",
+      "description": "A natural binder or disintegrant derived from plant mucilage.",
+      "unit": "mg"
+    },
+    {
+      "name": "GNSP",
+      "description": "Ground Nut Shells.",
+      "unit": "mg"
+    },
+    {
+      "name": "Ludipress",
+      "description": "A co-processed excipient blend for direct compression with good flow properties.",
+      "unit": "mg"
+    },
+    {
+      "name": "Kaolin",
+      "description": "A clay-based filler or absorbent used in tablet formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "Methyl paraben",
+      "description": "A preservative used to prevent microbial growth in formulations.",
+      "unit": "mg"
+    },
+    {
+      "name": "Camphor",
+      "description": "A flavoring agent and mild analgesic, also used in effervescent ODTs.",
+      "unit": "mg"
+    },
+    {
+      "name": "CPE",
+      "description": "Co-processed super-disintegrating agent. A blend of crospovidone and sodium starch glycolate and ethanol.",
+      "unit": "mg"
+    },
+    {
+      "name": "HARDNESS",
+      "description": "The force required to break a tablet by compression.",
+      "unit": "kg/cm²"
+    },
+    {
+      "name": "FRIABILITY",
+      "description": "The tendency of a tablet to crumble, expressed as a percentage weight loss after tumbling.",
+      "unit": "%"
+    },
+    {
+      "name": "Drug content",
+      "description": "The consistency of API content among tablets, usually expressed as a percentage of label claim.",
+      "unit": "%"
+    },
+    {
+      "name": "Water absorption ratio",
+      "description": "The amount of water absorbed by the tablet, calculated by weight difference before and after wetting.",
+      "unit": "%"
+    },
+    {
+      "name": "DISINTEGRATION_TIME",
+      "description": "The time taken for a tablet to completely disintegrate in a liquid medium under specific conditions.",
+      "unit": "seconds"
+    }
+  ]
+
+}

@@ -1,0 +1,80 @@
+Column Name,Description,Unit
+Molecular Weight,The molecular weight (molar mass) of the active pharmaceutical ingredient (API).,Dalton (g/mol)
+XLogP3-AA,"The predicted logarithm of the compound’s octanol–water partition coefficient (logP), indicating its lipophilicity.",Unitless
+Hydrogen Bond Donor Count,The number of hydrogen atoms in the molecule that can form hydrogen bonds (donors).,Count
+Hydrogen Bond Acceptor Count,The number of atoms in the molecule that can accept hydrogen bonds.,Count
+Rotational bond count,"The number of rotatable bonds in the molecule, affecting molecular flexibility.",Count
+Topological surface area,"The total surface area of all polar atoms, primarily oxygen and nitrogen, including attached hydrogens; used to estimate drug absorption.",Å² (square angstroms)
+Heavy atom count,The total number of non-hydrogen atoms in the compound.,Count
+Complexity," A quantitative measure of the molecular complexity, considering ring systems, stereochemistry, and branching.",Unitless
+LogS, Predicted aqueous solubility of the compound expressed as the logarithm of the solubility (mol/L). Lower values indicate lower solubility.,log(mol/L)
+DOSE,The amount of active pharmaceutical ingredient (API) present in a single tablet.,mg
+Weight(mg),The total weight of tablet,mg
+Bulk Density,The mass of powder (including air spaces) per unit volume before tapping.,g/cm³
+Tapped Density,The mass per unit volume of a powder after it has been tapped down to eliminate air gaps.,g/cm³
+Carrs Compressibility Index,A measure of compressibility calculated as: (Tapped Density - Bulk Density) / Tapped Density × 100. Indicates flowability.,%
+Hausner Ratio,An index of powder flowability calculated as Tapped Density / Bulk Density.,Unitless
+Angle of Repose,"The steepest angle at which a powder remains stable without sliding, indicating its flowability.",Degrees (°)
+Thickness,The thickness of the tablet measured with a caliper.,mm
+Wetting time,The time it takes for a tablet to become completely wet when placed in a fluid medium.,seconds
+Microcrystalline Cellulose,A common filler and binder used to provide structural integrity to tablets.,milligram(mg)
+Mannitol,A sweet-tasting sugar alcohol used as a diluent and cooling agent in orodispersible tablets.,milligram(mg)
+Magnesium Stearate,A lubricant used to prevent ingredients from sticking to manufacturing equipment.,milligram(mg)
+Talc,A glidant that improves powder flow during tablet manufacturing.,milligram(mg)
+Sodium croscarmellose,A superdisintegrant that facilitates rapid breakup of tablets in the gastrointestinal tract.,milligram(mg)
+Aspartame,A low-calorie artificial sweetener used to improve palatability.,milligram(mg)
+Hydroxypropyl Cellulose (HPC),A binder and film-forming agent that enhances tablet cohesion and release.,milligram(mg)
+Gum,"Natural binder or disintegrant (e.g., acacia, xanthan); improves tablet formation.",milligram(mg)
+Chitosan,A biodegradable polymer used as a binder or bioadhesive.,milligram(mg)
+Sodium Saccharin,An artificial sweetener used to mask the bitterness of active ingredients.,milligram(mg)
+Sodium lauryl sulfate(SLS),A surfactant used to enhance wetting and solubility of poorly soluble drugs.,milligram(mg)
+Sodium stearyl fumarate ,A hydrophobic lubricant used in direct compression formulations.,milligram(mg)
+Polyvinylpyrrolidone (Crospovidone),A crosslinked polymer used as a superdisintegrant in fast-disintegrating tablets.,milligram(mg)
+Sodium starch glycolate,A starch-based superdisintegrant that swells upon hydration.,milligram(mg)
+polyvinyl acetate,A film-forming polymer used for coating and controlled release.,milligram(mg)
+Lactose, A commonly used diluent that aids in tablet compressibility and palatability.,milligram(mg)
+Colloidal silicon dioxide (Aerosil),A glidant used to improve flow properties and prevent clumping.,milligram(mg)
+Citric acid,Used to adjust pH or as a flavoring agent to mask bitterness.,milligram(mg)
+Menthol,A flavoring and cooling agent that improves mouthfeel.,milligram(mg)
+B-cyclodextrin,A complexing agent that improves solubility and stability of APIs.,milligram(mg)
+Stevia leaf Powder ,A natural sweetener derived from the Stevia plant. ,milligram(mg)
+Clove oil ,A natural flavoring and antimicrobial agent.,milligram(mg)
+Starch, A traditional disintegrant and binder in tablet formulations.,milligram(mg)
+sodium bicarbonate (NaHCO3),An effervescent agent used to facilitate disintegration through gas generation.,milligram(mg)
+Plantago ovata,A natural fiber (psyllium) used as a swelling agent or disintegrant.,milligram(mg)
+Pharmaburst,A commercially available co-processed excipient for fast-disintegrating tablets.,milligram(mg)
+parteck,A brand of mannitol-based excipients designed for direct compression and disintegration.,milligram(mg)
+Polyethylene Glycol,A plasticizer or solubilizer used in formulations for improved drug release.,milligram(mg)
+Eudragit EPO,A pH-sensitive polymer used in taste-masking and modified-release coatings.,milligram(mg)
+Precirol,A lipid-based excipient used for sustained release formulations.,milligram(mg)
+acesulfame potassium,A calorie-free sweetener used to improve taste.,milligram(mg)
+Polacrilin Potassium,A strong ion-exchange resin used as a disintegrant.,milligram(mg)
+Acryflow-L,A lubricant and glidant excipient used to improve flowability.,milligram(mg)
+Indion,"A series of ion-exchange resins (e.g., Indion 414) used as disintegrants or taste-masking agents.",milligram(mg)
+Lubritose,A co-processed lactose-based excipient designed to improve compressibility.,milligram(mg)
+Sucralose,An artificial sweetener used to mask unpleasant tastes.,milligram(mg)
+Silicon dioxide,A glidant used to enhance flow and reduce moisture sensitivity.,milligram(mg)
+Neotame,A potent artificial sweetener used in low concentrations for taste improvement.,milligram(mg)
+Sucrose,A sugar-based diluent and sweetener often used in chewable and ODT formulations.,milligram(mg)
+Ocimum sanctum seed powder,A herbal excipient potentially used for its bioactive or binding properties.,milligram(mg)
+Agar,A natural gelling agent and disintegrant derived from seaweed.,milligram(mg)
+Calcium carbonate,"Used as a filler, pH buffer, or source of calcium.",milligram(mg)
+Prosolv ODT,A co-processed excipient system designed specifically for orodispersible tablets.,milligram(mg)
+Cellactose,A co-spray-dried lactose–cellulose blend used as a filler and binder.,milligram(mg)
+Quinoline yellow lake,A colorant used to improve tablet appearance.,milligram(mg)
+Aerosol,Likely a duplicate/misspelling of Aerosil (colloidal silicon dioxide).,milligram(mg)
+Sodium behenate,A lubricant and binder for direct compression formulations.,milligram(mg)
+Dibasic calcium phosphate,A diluent and binder commonly used in tablet formulations.,milligram(mg)
+Mucilage powder,A natural binder or disintegrant derived from plant mucilage.,milligram(mg)
+GNSP,Ground Nut Shells,milligram(mg)
+Ludipress,A co-processed excipient blend for direct compression with good flow properties.,milligram(mg)
+Kaolin,A clay-based filler or absorbent used in tablet formulations.,milligram(mg)
+Methyl paraben,A preservative used to prevent microbial growth in formulations.,milligram(mg)
+Camphor,"A flavoring agent and mild analgesic, also used in effervescent ODTs.",milligram(mg)
+CPE,"co-processed super-disintegrating agent,A blend of crospovidone
+and sodium starch glycolate and ethanol.",milligram(mg)
+HARDNESS, The force required to break a tablet by compression., kg/cm²
+FRIABILITY," The tendency of a tablet to crumble, expressed as a percentage weight loss after tumbling.",%
+Drug content," The consistency of API content among tablets, usually expressed as a percentage of label claim.",%
+Water absorption ratio,"The amount of water absorbed by the tablet, calculated by weight difference before and after wetting.",%
+DISINTEGRATION_TIME,The time taken for a tablet to completely disintegrate in a liquid medium under specific conditions.,seconds

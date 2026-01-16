@@ -1,0 +1,17 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TUSJYB>
+    a dcat:Dataset ;
+    dct:title "Fast-Disintegrating Tablet Formulations Dataset" ;
+    dct:description "A curated dataset of pharmaceutical formulations for fast-disintegrating tablets collected from articles published between 2010–2020. Includes formulation variables and disintegration performance." ;
+    dct:creator [
+        a foaf:Person ;
+        foaf:name "Mehri Momeni"
+    ] ;
+    dct:issued "2023-07-01"^^xsd:date ;
+    dcat:accessURL <https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TUSJYB> ;
+    dcat:downloadURL <https://dvn-cloud.s3.amazonaws.com/10.7910/DVN/TUSJYB/19706b7b698-d5524b7d794e.orig?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27final%2520Data%2520All%2520Exipients%252813990829%2529.csv&response-content-type=text%2Fcsv&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250527T093614Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIAIEJ3NV7UYCSRJC7A%2F20250527%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=672a9d3176c7ef3be0cff1f9bcb3ef4874b7e45f7c9d1a3eb01dc2f1ca8c5b0f> ;
+    dct:license <https://creativecommons.org/publicdomain/zero/1.0/> .
