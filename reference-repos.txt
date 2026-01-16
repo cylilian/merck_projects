@@ -3,3 +3,5 @@ https://github.com/Bostanabad-Research-Group/GP-Plus
 https://github.com/anyoptimization/pymoo
 https://github.com/GPflow/GPflow
 https://github.com/hegdepashupati/gprn-svi
+https://github.com/MSDLLCpapers/obsidian
+https://github.com/ThomasBury/arfs
