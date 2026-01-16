@@ -1,0 +1,16 @@
+DATA:
+  NUM_TASKS: 2 ## The number of replicates
+  NUM_OUTPUTS: 2 ## The number of outputs
+MODEL:
+  MODEL_NAME: MTMO #MTMO-LMGP
+  CATE_TRANS: ohe #if model name MTMO-LMGP, then MODEL.CATE_TRANS must be label
+  OUTPUT_RANK: 2  ## The rank of outputs
+  TASK_RANK: 3 ## The rank of tasks
+  SPLIT: by-task #if Model_name is MO, split must be by-task
+PATH:
+  DATA_PATH: /Users/chenya68/Documents/GitHub/BFO/data/harpoon
+MISC:
+  DATA_NAME: Harpoon
+  DATE: djan2026
+
+ 
