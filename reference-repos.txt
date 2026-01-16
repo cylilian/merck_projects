@@ -1,2 +1,5 @@
 https://github.com/nm1ll/stat-mtl
 https://github.com/Bostanabad-Research-Group/GP-Plus
+https://github.com/anyoptimization/pymoo
+https://github.com/GPflow/GPflow
+https://github.com/hegdepashupati/gprn-svi
