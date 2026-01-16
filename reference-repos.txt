@@ -7,3 +7,5 @@ https://github.com/MSDLLCpapers/obsidian
 https://github.com/ThomasBury/arfs
 https://github.com/ChunchaoPeter/HMOGP-LV
 https://github.com/ssydasheng/GPflow-Slim
+https://github.com/Shujun-He/RNAdegformer
+https://github.com/SheffieldML/notebook
