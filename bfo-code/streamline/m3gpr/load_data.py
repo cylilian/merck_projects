@@ -14,6 +14,7 @@ class Data_set(object):
         self.Data_name = cfg.MISC.DATA_NAME
         self.model_name = cfg.MODEL.MODEL_NAME
         self.seed = seed
+        self.cols_to_drop = cfg.DATA.DROP_COLS
 
         ## Data options
         self.num_tasks = cfg.DATA.NUM_TASKS
@@ -66,12 +67,16 @@ class Data_set(object):
             X_all_outputs_with_replicates, Y_list = self.Viscosity_dataset()
             return X_all_outputs_with_replicates, Y_list
         elif self.Data_name == 'Harpoon':
-            #df_x, df_y_wide, df_y_long = self.harpoon_dataset()
             df_x, df_y = self.harpoon_dataset()
-            if self.cv == 'none':
+        elif self.Data_name == 'FDT':
+            df_x, df_y = self.fdt_dataset()
+        else:
+            None
+
+        if self.cv == 'none':
                 #return df_x, df_y_wide, df_y_long
                 return df_x, df_y
-            elif self.cv == 'kfold':
+        elif self.cv == 'kfold':
                 kfold = KFold(n_splits=self.n_cv, shuffle=True,random_state=0)
 
                 ls_X_train = []
@@ -119,7 +124,7 @@ class Data_set(object):
                     ls_y_train.append(torch.Tensor(scaled_y_train))
                     ls_y_test.append(torch.Tensor(scaled_y_test))
                     count +=1
-                return df_x, df_y,ls_X_train,ls_X_test,ls_y_train,ls_y_test,self.y_scaler
+        return df_x, df_y,ls_X_train,ls_X_test,ls_y_train,ls_y_test,self.y_scaler
     
     def harpoon_dataset(self):
         data_path_x = self.data_path+'/harpoon_df_x_24.csv'
@@ -206,3 +211,56 @@ class Data_set(object):
 
         #return df_X, total_df_y_wide,total_df_y_long
         return df_X, df_Y
+    
+
+    def fdt_dataset(self):
+        data_path_x = self.data_path+'df_x.csv'
+        data_path_y = self.data_path+'df_y.csv'
+        df_x = pd.read_csv(data_path_x)
+        cols_to_drop = self.cols_to_drop
+        df_x = df_x.drop(columns=cols_to_drop, errors='ignore')
+
+        df_y = pd.read_csv(data_path_y)
+        #df_y.columns = [re.sub('[^A-Za-z0-9Δ]+', '_', element) for element in df_y.columns]
+        """
+        cols_cate = ['Aspartame',
+            'B_cyclodextrin',
+            'Hydrogen_Bond_Donor_Count',
+            'Neotame',
+            'Rotational_bond_count',
+            'Sodium_saccharin']
+        """
+        if self.num_tasks == 1:
+            cols_cate = ['Clove_oil_', 'Menthol', 'Neotame', 'Polyethylene_Glycol', 'Sodium_Saccharine_', 'Sodium_lauryl_sulfate_SLS_', 'Stevia_leaf_Powder_']
+        
+
+            print(self.cate_transform)
+            ls_inter = [value for value in list(df_x.columns) if value in cols_cate]
+            df_x_cate_trans = df_x.copy()
+            if self.cate_transform =='label':
+                #convert categorical columns to labels
+                for x_name in ls_inter:
+                    labels, categories = factorize(df_x[x_name])
+                    df_x_cate_trans[x_name+"_label"] = labels
+                df_x_cate_trans.drop(ls_inter,axis = 1,inplace = True)
+        
+            #onehot encoding
+            elif self.cate_transform =='ohe':
+                df_x_cate_trans = pd.get_dummies(df_x, columns = ls_inter)
+                df_x_cate_trans.columns = [re.sub('[^A-Za-z0-9Δ]+', '_', element) for element in df_x_cate_trans.columns]
+                #convert boolean True False to 0 1
+                bool_cols = df_x_cate_trans.select_dtypes(include='bool').columns
+                df_x_cate_trans[bool_cols] = df_x_cate_trans[bool_cols].astype(int)
+
+        
+        
+            df_X = df_x_cate_trans
+            df_Y = df_y
+        else:
+            #if number of tasks>1, the categorical variable transformation has already been completed
+            df_X = df_x
+            df_Y = df_y
+
+        #return df_X, total_df_y_wide,total_df_y_long
+        return df_X, df_Y
+    

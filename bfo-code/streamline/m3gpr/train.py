@@ -6,10 +6,11 @@ from sklearn import metrics
 import torch
 import gpytorch
 from m3gpr.models import *
+from gpytorch.constraints import GreaterThan
 #from m3gpr.models import singleGP_gpytorch,rf_sklearn,singleGP_gpytorch_train,singleGP_gpytorch_reference,MultitaskGPModel,MTMOGP
 
 class CV_Trainer(object):
-    def __init__(self,cfg,ls_X_train,ls_X_test,ls_y_train,ls_y_test,obj_y_scaler):
+    def __init__(self,cfg,ls_X_train,ls_X_test,ls_y_train,ls_y_test,obj_y_scaler,cov):
         self.model_name = cfg.MODEL.MODEL_NAME
         self.n_cv = cfg.MODEL.N_CV#cfg.MODEL.N_CV is number of cv
         self.num_outputs = cfg.DATA.NUM_OUTPUTS
@@ -31,8 +32,11 @@ class CV_Trainer(object):
             self.metric_row = 0
         elif self.err_metric == 'RMSE':
             self.metric_row = 3
+        elif self.err_metric == 'NMSE':
+            self.metric_row = 2
 
         self.link_rank =cfg.MODEL.LIK_RANK
+        self.cov = cov
     def set_up_cv_model(self):
         if self.model_name == 'singleGP':
             combs,ls_model_from_combs,ls_arr_cv_mae,ls_arr_cv_r2,ls_arr_cv_err,mean_arr_cv_mae,mean_arr_cv_r2,mean_arr_cv_err = self.set_up_sgp_cv()
@@ -46,9 +50,9 @@ class CV_Trainer(object):
     
     def set_up_sgp_cv(self):
         ls_model_from_combs = [[] for _ in range(self.num_total_output)]
-        ls_init_len = [2.0,3.0,4.0]
-        ls_lr = [0.1,0.15,0.2,0.25]
-        ls_n_iter = [200,300]
+        ls_init_len = [3.0]#[3.0]#[2.0,3.0,4.0]
+        ls_lr = [0.25]#[0.25]#[0.1,0.15,0.2,0.25]
+        ls_n_iter = [300]#[300]#[200,300]
         combs = list(itertools.product(ls_init_len,ls_lr,ls_n_iter))
 
         mean_arr_cv_mae = np.zeros((2,len(combs))) #train,test
@@ -151,7 +155,7 @@ class CV_Trainer(object):
 
                     arr_test_metrics[0,a] = metrics.mean_absolute_error(y_true, y_pred)
                     arr_test_metrics[1,a] = metrics.median_absolute_error(y_true, y_pred)
-                    arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)
+                    arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)/np.var(y_true, ddof=0)#Normalized MSE
                     arr_test_metrics[3,a] = metrics.root_mean_squared_error(y_true, y_pred)
                     arr_test_metrics[4,a] = metrics.mean_absolute_percentage_error(y_true, y_pred)
                     arr_test_metrics[5,a] = metrics.max_error(y_true, y_pred)
@@ -163,7 +167,7 @@ class CV_Trainer(object):
 
                     arr_train_metrics[0,a] = metrics.mean_absolute_error(y_train, mean_train)
                     arr_train_metrics[1,a] = metrics.median_absolute_error(y_train, mean_train)
-                    arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)
+                    arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)/np.var(y_train, ddof=0)#Normalized MSE
                     arr_train_metrics[3,a] = metrics.root_mean_squared_error(y_train, mean_train)
                     arr_train_metrics[4,a] = metrics.mean_absolute_percentage_error(y_train, mean_train)
                     arr_train_metrics[5,a] = metrics.max_error(y_train, mean_train)
@@ -200,8 +204,8 @@ class CV_Trainer(object):
     def set_up_mo_cv(self):
         ls_model_from_combs = []
 
-        ls_lr = [0.25,0.35,0.45]#[0.1,0.15,0.2,0.25,0.3,0.35,0.40]
-        ls_n_iter = [500,700,900]#[200,300,400,500,700]
+        ls_lr = [0.1]#[0.25,0.35,0.45]#[0.1,0.15,0.2,0.25,0.3,0.35,0.40]
+        ls_n_iter = [150]#[500,700,900]#[200,300,400,500,700]
         combs = list(itertools.product(ls_lr,ls_n_iter))
 
         mean_arr_cv_mae = np.zeros((2,len(combs))) #train,test
@@ -224,33 +228,60 @@ class CV_Trainer(object):
                 t_test_y = self.ls_y_test[batch_ind]
 
                 likelihood = gpytorch.likelihoods.MultitaskGaussianLikelihood(num_tasks=self.num_total_output,rank = self.link_rank)
+                """
+                # Add a constraint to ensure variance is >= 1e-4
+                likelihood.task_covar_module.register_constraint(
+                    "raw_var", GreaterThan(1e-4)
+                )
+                """
                 model = MultitaskGPModel(t_train_x, t_train_y, likelihood, num_tasks= self.num_total_output, rank = self.num_outputs)
+                """
+                likelihood = gpytorch.likelihoods.MultitaskGaussianLikelihood(
+                    num_tasks=self.num_outputs, 
+                    rank=self.link_rank if self.link_rank is not None else 0
+                )
+                model = MOGP(t_train_x, t_train_y, likelihood, output_rank = self.num_outputs)
+                
+                """
 
+                """
                 if batch_ind>0:
                     source_state_dict = pre_model.state_dict()
                     model.load_state_dict(source_state_dict)
                     #model.covar_module.base_kernel.lengthscale = pre_model.covar_module.base_kernel.lengthscale
                     #model.likelihood.noise = pre_model.likelihood.noise
                 # Find optimal model hyperparameters
+                """
                 model.train()
                 likelihood.train()
-
+                
+                all_params = set(model.parameters())
+                frozen_params = {model.covar_module.task_covar_module.covar_factor}
+                optimizable_params = list(all_params - frozen_params)
+                optimizer = torch.optim.Adam(optimizable_params, lr=lr)  # Includes GaussianLikelihood parameters
+                
                 # Use the adam optimizer
-                optimizer = torch.optim.Adam(model.parameters(), lr=lr)  # Includes GaussianLikelihood parameters
+                #optimizer = torch.optim.Adam(model.parameters(), lr=lr)  # Includes GaussianLikelihood parameters
 
                 # "Loss" for GPs - the marginal log likelihood
                 mll = gpytorch.mlls.ExactMarginalLogLikelihood(likelihood, model)
 
                 training_iterations = n_iter#500
+                loss_list = []
                 for _ in range(training_iterations):
                     optimizer.zero_grad()
-                    output = model(t_train_x)
-                    #print('output.shape',output.shape)
-                    #print('t_train_y.shape',t_train_y.shape)
-                    loss = -mll(output, t_train_y)
-                    loss.backward()
-                    #print('Iter %d/%d - Loss: %.3f' % (i + 1, training_iterations, loss.item()))
-                    optimizer.step()
+                    with gpytorch.settings.cholesky_jitter(1e-5):
+                        output = model(t_train_x)
+                        #print('output.shape',output.shape)
+                        #print('t_train_y.shape',t_train_y.shape)
+                        loss = -mll(output, t_train_y)
+                        loss_list.append(loss.item())
+                        loss.backward()
+                        #print('Iter %d/%d - Loss: %.3f' % (i + 1, training_iterations, loss.item()))
+                        optimizer.step()
+                
+                plt.plot(loss_list)
+                plt.title('Neg. Loss', fontsize='small')
 
                 ls_model_from_combs.append(model)
                 if batch_ind == 0:
@@ -329,7 +360,7 @@ class CV_Trainer(object):
 
                     arr_test_metrics[0,a] = metrics.mean_absolute_error(y_true, y_pred)
                     arr_test_metrics[1,a] = metrics.median_absolute_error(y_true, y_pred)
-                    arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)
+                    arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)/np.var(y_true, ddof=0)#Normalized MSE
                     arr_test_metrics[3,a] = metrics.root_mean_squared_error(y_true, y_pred)
                     arr_test_metrics[4,a] = metrics.mean_absolute_percentage_error(y_true, y_pred)
                     arr_test_metrics[5,a] = metrics.max_error(y_true, y_pred)
@@ -341,7 +372,7 @@ class CV_Trainer(object):
 
                     arr_train_metrics[0,a] = metrics.mean_absolute_error(y_train, mean_train)
                     arr_train_metrics[1,a] = metrics.median_absolute_error(y_train, mean_train)
-                    arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)
+                    arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)/np.var(y_train, ddof=0)#Normalized MSE
                     arr_train_metrics[3,a] = metrics.root_mean_squared_error(y_train, mean_train)
                     arr_train_metrics[4,a] = metrics.mean_absolute_percentage_error(y_train, mean_train)
                     arr_train_metrics[5,a] = metrics.max_error(y_train, mean_train)
@@ -378,8 +409,8 @@ class CV_Trainer(object):
     def set_up_mtmo_cv(self):
         ls_model_from_combs = []
 
-        ls_lr = [0.1,0.15,0.25]#[0.1,0.15,0.2,0.25,0.3,0.35,0.40]
-        ls_n_iter = [500,700,900,1100]#[200,300,400,500,700]
+        ls_lr = [0.01]#[0.1,0.15,0.2,0.25,0.3,0.35,0.40]#[0.1,0.15,0.25]
+        ls_n_iter = [1000]#[200,300,400,500,700]#[500,700,900,1100]
         combs = list(itertools.product(ls_lr,ls_n_iter))
 
         mean_arr_cv_mae = np.zeros((2,len(combs))) #train,test
@@ -391,11 +422,13 @@ class CV_Trainer(object):
         ls_arr_cv_err = [np.zeros((2,len(combs))) for _ in range(self.num_total_output)]
 
         for i in range(0,len(combs)):
+            print('-------Combination',str(i))
             lr,n_iter = combs[i]
             arr_train_metrics = np.zeros((11,self.num_cols))
             arr_test_metrics = np.zeros((11,self.num_cols))
             pre_model = None
             for batch_ind in range(self.n_cv):
+                print('-------Batch',str(batch_ind))
                 t_train_x = self.ls_X_train[batch_ind]
                 t_train_y = self.ls_y_train[batch_ind]
                 t_test_x = self.ls_X_test[batch_ind]
@@ -509,7 +542,7 @@ class CV_Trainer(object):
                         #a = mtmo_ind + self.num_total_output*batch_ind
                         arr_test_metrics[0,a] = metrics.mean_absolute_error(y_true, y_pred)
                         arr_test_metrics[1,a] = metrics.median_absolute_error(y_true, y_pred)
-                        arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)
+                        arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)/np.var(y_true, ddof=0)#Normalized MSE
                         arr_test_metrics[3,a] = metrics.root_mean_squared_error(y_true, y_pred)
                         arr_test_metrics[4,a] = metrics.mean_absolute_percentage_error(y_true, y_pred)
                         arr_test_metrics[5,a] = metrics.max_error(y_true, y_pred)
@@ -521,7 +554,7 @@ class CV_Trainer(object):
 
                         arr_train_metrics[0,a] = metrics.mean_absolute_error(y_train, mean_train)
                         arr_train_metrics[1,a] = metrics.median_absolute_error(y_train, mean_train)
-                        arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)
+                        arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)/np.var(y_train, ddof=0)#Normalized MSE
                         arr_train_metrics[3,a] = metrics.root_mean_squared_error(y_train, mean_train)
                         arr_train_metrics[4,a] = metrics.mean_absolute_percentage_error(y_train, mean_train)
                         arr_train_metrics[5,a] = metrics.max_error(y_train, mean_train)
@@ -685,7 +718,7 @@ class CV_Trainer(object):
                         #a = mtmo_ind + self.num_total_output*batch_ind
                         arr_test_metrics[0,a] = metrics.mean_absolute_error(y_true, y_pred)
                         arr_test_metrics[1,a] = metrics.median_absolute_error(y_true, y_pred)
-                        arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)
+                        arr_test_metrics[2,a] = metrics.mean_squared_error(y_true, y_pred)/np.var(y_true, ddof=0)#Normalized MSE
                         arr_test_metrics[3,a] = metrics.root_mean_squared_error(y_true, y_pred)
                         arr_test_metrics[4,a] = metrics.mean_absolute_percentage_error(y_true, y_pred)
                         arr_test_metrics[5,a] = metrics.max_error(y_true, y_pred)
@@ -697,7 +730,7 @@ class CV_Trainer(object):
 
                         arr_train_metrics[0,a] = metrics.mean_absolute_error(y_train, mean_train)
                         arr_train_metrics[1,a] = metrics.median_absolute_error(y_train, mean_train)
-                        arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)
+                        arr_train_metrics[2,a] = metrics.mean_squared_error(y_train, mean_train)/np.var(y_train, ddof=0)#Normalized MSE
                         arr_train_metrics[3,a] = metrics.root_mean_squared_error(y_train, mean_train)
                         arr_train_metrics[4,a] = metrics.mean_absolute_percentage_error(y_train, mean_train)
                         arr_train_metrics[5,a] = metrics.max_error(y_train, mean_train)

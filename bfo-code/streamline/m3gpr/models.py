@@ -186,6 +186,9 @@ def rf_sklearn(X_train,y_train,X_test,random_state= 0,cv_option = 'kfold',n_cv =
     return y_train_pred, y_pred, rf_grid
 
 class MultitaskGPModel(gpytorch.models.ExactGP):
+    """
+    where the number of data points for each task are the same
+    """
     def __init__(self, train_x, train_y, likelihood,num_tasks, rank = 0):
         super(MultitaskGPModel, self).__init__(train_x, train_y, likelihood)
         self.mean_module = gpytorch.means.MultitaskMean(
@@ -194,11 +197,70 @@ class MultitaskGPModel(gpytorch.models.ExactGP):
         self.covar_module = gpytorch.kernels.MultitaskKernel(
             gpytorch.kernels.RBFKernel(), num_tasks=num_tasks, rank=rank
         )
+        
+        B_init = torch.Tensor([[ 2.2503e-01,  2.4229e-02,  9.3053e+00, -3.8525e+00, -1.6408e-01],
+        [ 2.4229e-02,  4.6584e-02, -1.7059e+00, -2.9241e-01, -3.2570e+00],
+        [ 9.3053e+00, -1.7059e+00,  2.4771e+03, -9.1610e+02,  1.3841e+02],
+        [-3.8525e+00, -2.9241e-01, -9.1610e+02,  1.3570e+03, -8.3880e+00],
+        [-1.6408e-01, -3.2570e+00,  1.3841e+02, -8.3880e+00,  1.6869e+03]])
 
+        self.covar_module.task_covar_module.covar_factor.data = torch.linalg.cholesky(B_init)
+        
     def forward(self, x):
         mean_x = self.mean_module(x)
         covar_x = self.covar_module(x)
         return gpytorch.distributions.MultitaskMultivariateNormal(mean_x, covar_x)
+
+
+class MOGP(gpytorch.models.ExactGP):
+    """
+    where the number of data points for each task may not be the same
+    """
+    def __init__(
+        self,
+        train_X,
+        train_Y,
+        likelihood,
+        data_kernel = 'Matern',
+        output_rank = None
+    ) -> None:
+
+        num_outputs = train_Y.shape[-1]
+        #num_tasks = len(torch.unique(train_X[..., -1]))
+
+        super(MOGP, self).__init__(train_X, train_Y,likelihood)
+        self.output_rank = output_rank if output_rank is not None else num_outputs
+
+        self.mean_module = gpytorch.means.MultitaskMean(
+            gpytorch.means.ConstantMean(), num_tasks=num_outputs
+        )
+        
+        if data_kernel == 'Matern':
+            self.data_kernel = gpytorch.kernels.MaternKernel()
+        else:
+            self.data_kernel = gpytorch.kernels.RBFKernel()
+        self.output_kernel = gpytorch.kernels.IndexKernel(num_tasks=num_outputs, rank = self.output_rank) #default rank is 1
+        """
+        B_init = torch.Tensor([[ 0.8104, -0.9076,  0.2647, -0.2858,  0.7904, -0.8965],
+        [-0.9076,  1.0704, -0.3023,  0.3344, -0.8869,  1.0273],
+        [ 0.2647, -0.3023,  0.1042, -0.1178,  0.2347, -0.2508],
+        [-0.2858,  0.3344, -0.1178,  0.1443, -0.2424,  0.2659],
+        [ 0.7904, -0.8869,  0.2347, -0.2424,  1.0069, -1.2825],
+        [-0.8965,  1.0273, -0.2508,  0.2659, -1.2825,  1.8860]])
+        B_init = torch.nn.Parameter(B_init, requires_grad=True)
+        self.output_kernel.covar_factor.data = torch.linalg.cholesky(B_init)
+        """
+        self.to(train_X)
+        
+    def forward(self, x):
+        mean_x = self.mean_module(x)
+        #task_term = self.task_kernel(x[..., -1].long())
+        #data_and_task_x = self.data_kernel(x[..., :-1]).mul(task_term)
+        data_x = self.data_kernel(x)
+        output_x = self.output_kernel.covar_matrix
+        covar_x = gpytorch.lazy.KroneckerProductLazyTensor(data_x, output_x)
+        return gpytorch.distributions.MultitaskMultivariateNormal(mean_x, covar_x)
+
 
 class MTMOGP(gpytorch.models.ExactGP):
 

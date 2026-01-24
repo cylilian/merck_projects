@@ -12,6 +12,7 @@ _C.DATA = CN()
 _C.DATA.FILE_TYPE = 'xlsx' ## input data file type
 _C.DATA.NUM_TASKS = 3 ## The number of replicates
 _C.DATA.NUM_OUTPUTS = 2 ## The number of replicates
+_C.DATA.DROP_COLS = ['Molecular_Weight','task_ind'] #drop cols for fdt dataset
 
 # -----------------------------------------------------------------------------
 # Model Parameter
@@ -28,7 +29,7 @@ _C.MODEL.NUM_TRAIN_ITERS = 100
 _C.MODEL.SPLIT = 'by-task'#'combine'#'by-task'
 _C.MODEL.CV = 'kfold'#none
 _C.MODEL.N_CV = 5
-_C.MODEL.METRIC = 'RMSE' #MAE
+_C.MODEL.METRIC = 'NMSE' #MAE
 
 _C.MODEL.OUTPUT_RANK = 1 #if 0, no correlation between output
 _C.MODEL.TASK_RANK = 2#if 0, no correlation between tasks
@@ -44,7 +45,7 @@ _C.PATH.SAVING_GENERAL = '/Users/chenya68/Documents/GitHub/BFO' # General direct
 #_C.PATH.PARAMETERS = '/Model_parameter/synthetic-same-input/Parameter-HMOGPLV' # Output parameters directory
 #_C.PATH.PLOT = '/All-plot/synthetic-same-input/Plot-HMOGPLV' # Output plot directory
 _C.PATH.RESULT = '/Users/chenya68/Documents/GitHub/BFO/output' # Output result directory
-_C.PATH.DATA_PATH = '/Users/chenya68/Documents/GitHub/BFO/data/harpoon/harpoon-doe.xlsx'
+_C.PATH.DATA_PATH = '/Users/chenya68/Documents/GitHub/BFO/bfo-data/harpoon/harpoon-doe.xlsx'
 
 # ---------------------------------------------------------------------------- #
 # Misc options
