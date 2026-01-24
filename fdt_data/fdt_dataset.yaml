@@ -1,0 +1,18 @@
+DATA:
+  NUM_TASKS: 10 ## The number of replicates
+  NUM_OUTPUTS: 5 ## The number of outputs
+MODEL:
+  MODEL_NAME: singleGP #MTMO-LMGP
+  CATE_TRANS: ohe #if model name MTMO-LMGP, then MODEL.CATE_TRANS must be label
+  OUTPUT_RANK: 2  ## The rank of outputs
+  TASK_RANK: 3 ## The rank of tasks
+  SPLIT: combine # for fdt, if Model_name is MO, split better be combine
+  N_CV: 10
+PATH:
+  DATA_PATH: /Users/chenya68/Documents/GitHub/BFO/bfo-data/fdt_data/ #/Users/chenya68/Documents/GitHub/BFO/bfo-data/fdt_data/by-api/w313.9_
+MISC:
+  DATA_NAME: FDT
+  DATE: djan2026-noremovezeroy #djan2026-w313.9
+  #[239.31, 313.9, 354.2, 461.0, 358.8, 461.8, 391.5, 323.4, 538.1, 287.36]
+
+ 
